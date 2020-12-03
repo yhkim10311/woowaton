@@ -26,3 +26,8 @@ spring:
     redis:
       flush-mode: on_save
       namespace: "spring:session"
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://yh-toy-database-2.cluster-cki3kdutd3oc.ap-northeast-2.rds.amazonaws.com:3306/yh_woowaton?characterEncoding=utf8
+    username: admin
+    password: tlzmflt1018!

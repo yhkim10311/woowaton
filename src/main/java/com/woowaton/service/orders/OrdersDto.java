@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,8 @@ public class OrdersDto {
     private Integer itemCnt;
 
     private StoreDto storeDto;
+
+    private LocalDateTime createdDate;
 
     private List<MenuDto> menusDto = new ArrayList<>();
 

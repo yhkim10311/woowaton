@@ -5,6 +5,7 @@ import com.woowaton.service.orders.OrdersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,5 +21,10 @@ public class OrdersRestController {
     @GetMapping
     public ResponseEntity<List<OrdersDto>> allOrdersByDesc(){
         return ResponseEntity.ok(ordersService.findAllByDesc());
+    }
+
+    @GetMapping("/page")
+    public ResponseEntity<List<OrdersDto>> allOrdersByPage(){
+        return ResponseEntity.ok(ordersService.findAllByPage());
     }
 }

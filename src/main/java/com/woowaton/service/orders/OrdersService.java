@@ -5,4 +5,6 @@ import java.util.List;
 public interface OrdersService {
 
     List<OrdersDto> findAllByDesc();
+
+    List<OrdersDto> findAllByPage();
 }
