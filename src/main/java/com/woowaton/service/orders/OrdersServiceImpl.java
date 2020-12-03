@@ -21,7 +21,7 @@ public class OrdersServiceImpl implements OrdersService{
         return ordersRepository.findAllDesc().stream().map(orders -> new OrdersDto(orders)).collect(Collectors.toList());
     }
 
-    public List<OrdersDto> findAllByPage(){
-        return ordersRepository.findAllByPage(PageRequest.of(0,30)).stream().map(orders -> new OrdersDto(orders)).collect(Collectors.toList());
+    public List<OrdersDto> findAllByPage(int offset, int limit){
+        return ordersRepository.findAllByPage(PageRequest.of(offset,limit)).stream().map(orders -> new OrdersDto(orders)).collect(Collectors.toList());
     }
 }

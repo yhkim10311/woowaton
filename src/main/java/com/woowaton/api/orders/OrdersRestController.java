@@ -4,10 +4,7 @@ import com.woowaton.service.orders.OrdersDto;
 import com.woowaton.service.orders.OrdersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,7 +21,8 @@ public class OrdersRestController {
     }
 
     @GetMapping("/page")
-    public ResponseEntity<List<OrdersDto>> allOrdersByPage(){
-        return ResponseEntity.ok(ordersService.findAllByPage());
+    public ResponseEntity<List<OrdersDto>> allOrdersByPage(@RequestParam(value = "offset", defaultValue = "0") int offset,
+                                                           @RequestParam(value = "limit", defaultValue = "30") int limit){
+        return ResponseEntity.ok(ordersService.findAllByPage(offset, limit));
     }
 }
