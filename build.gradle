@@ -34,7 +34,7 @@ dependencies {
     implementation('org.projectlombok:lombok')
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
     implementation('com.h2database:h2')
-//    implementation 'mysql:mysql-connector-java'
+    implementation 'mysql:mysql-connector-java'
 
     implementation group: 'com.google.guava', name: 'guava', version: '29.0-jre'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
@@ -44,7 +44,7 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-data-redis')
     implementation group: 'it.ozimov', name: 'embedded-redis', version: '0.7.2'
     implementation('org.springframework.session:spring-session-data-redis')
-//    implementation group: 'com.amazonaws', name: 'aws-java-sdk-rds', version: '1.11.847'
+    implementation group: 'com.amazonaws', name: 'aws-java-sdk-rds', version: '1.11.847'
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation('org.springframework.security:spring-security-test')
 
