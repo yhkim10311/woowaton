@@ -67,8 +67,8 @@ public class OrdersServiceImpl implements OrdersService{
         if(flag){
             Integer seq = (Integer) redisTemplate.opsForValue().get(redisKey);
             List<OrdersDto> ordersDtos = (List<OrdersDto>) redisTemplate.opsForValue().get(redisKey+"List");
-            result = ordersDtos.subList(seq,seq+100);
-            redisTemplate.opsForValue().set(redisKey,seq+100, 1, TimeUnit.MINUTES);
+            result = ordersDtos.subList(seq,seq+10);
+            redisTemplate.opsForValue().set(redisKey,seq+10, 1, TimeUnit.MINUTES);
             Cookie cookie = new Cookie(woowaCookie, redisKey);
             cookie.setHttpOnly(true);
             cookie.setPath("/");
@@ -77,8 +77,8 @@ public class OrdersServiceImpl implements OrdersService{
         }else{
             List<OrdersDto> ordersDtos = findAllByDesc();
             redisTemplate.opsForValue().set(redisKey+"List",ordersDtos);
-            redisTemplate.opsForValue().set(redisKey,100, 1, TimeUnit.MINUTES);
-            result = ordersDtos.subList(0,100);
+            redisTemplate.opsForValue().set(redisKey,10, 1, TimeUnit.MINUTES);
+            result = ordersDtos.subList(0,10);
             Cookie cookie = new Cookie(woowaCookie, redisKey);
             cookie.setHttpOnly(true);
             cookie.setPath("/");
