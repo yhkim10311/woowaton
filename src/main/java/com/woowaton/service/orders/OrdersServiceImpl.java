@@ -1,5 +1,6 @@
 package com.woowaton.service.orders;
 
+import com.woowaton.domain.orders.Orders;
 import com.woowaton.domain.orders.OrdersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -23,4 +24,9 @@ public class OrdersServiceImpl implements OrdersService{
         return ordersRepository.findAllByPage(PageRequest.of(offset,limit)).stream().map(orders -> new OrdersDto(orders)).collect(Collectors.toList());
     }
 
+    @Override
+    public OrdersDto findOrder(Long id){
+        Orders orders = ordersRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("No such order exists"));
+        return new OrdersDto(orders);
+    }
 }

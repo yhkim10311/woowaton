@@ -8,4 +8,5 @@ public interface OrdersService {
 
     List<OrdersDto> findAllByPage(int offset, int limit);
 
+    OrdersDto findOrder(Long id);
 }
