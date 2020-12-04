@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/orders")
 @RequiredArgsConstructor
@@ -37,69 +38,9 @@ public class OrdersRestController {
     }
 
     @GetMapping("/v2/page")
-    public ResponseEntity<List<OrdersDto>> allOrdersByPageV2(@RequestParam(value = "offset", defaultValue = "0") int offset,
-                                                             @RequestParam(value = "limit", defaultValue = "30") int limit,
-                                                             HttpServletRequest request, HttpServletResponse response){
-        List<OrdersDto> result;
+    public ResponseEntity<List<OrdersDto>> allOrdersByPageV2(HttpServletRequest request, HttpServletResponse response){
 
-        String redisKey = UUID.randomUUID().toString();
-        Cookie[] cookies = request.getCookies();
-        boolean flag = false;
-
-        if(cookies!=null) {
-            for (Cookie cookie : cookies) {
-                String cookieName = cookie.getName();
-                if (cookieName.equals(woowaCookie)) {
-                    Object obj = redisTemplate.opsForValue().get(cookie.getValue());
-                    if (obj != null) {
-                        flag = true;
-                        redisKey = cookie.getValue();
-                        break;
-                    }
-                }
-            }
-        }
-        if(flag){
-            Integer seq = (Integer) redisTemplate.opsForValue().get(redisKey);
-            List<OrdersDto> ordersDtos = (List<OrdersDto>) redisTemplate.opsForValue().get(redisKey+"List");
-            result = ordersDtos.subList(seq,seq+10);
-            redisTemplate.opsForValue().set(redisKey,seq+10, 1, TimeUnit.MINUTES);
-            Cookie cookie = new Cookie(woowaCookie, redisKey);
-            cookie.setHttpOnly(true);
-            cookie.setPath("/");
-            cookie.setMaxAge(30);
-            response.addCookie(cookie);
-        }else{
-            List<OrdersDto> ordersDtos = ordersService.findAllByDesc();
-            redisTemplate.opsForValue().set(redisKey+"List",ordersDtos);
-            redisTemplate.opsForValue().set(redisKey,10, 1, TimeUnit.MINUTES);
-            result = ordersDtos.subList(0,10);
-            Cookie cookie = new Cookie(woowaCookie, redisKey);
-            cookie.setHttpOnly(true);
-            cookie.setPath("/");
-            cookie.setMaxAge(30);
-            response.addCookie(cookie);
-        }
-
-
-        /*
-        Object obj = redisTemplate.opsForValue().get("yhAdminKey");
-
-        if(obj == null){
-            List<OrdersDto> ordersDtos = ordersService.findAllByDesc();
-            redisTemplate.opsForValue().set("yhAdmin",ordersDtos);
-            redisTemplate.opsForValue().set("yhAdminKey",10, 1, TimeUnit.MINUTES);
-            result = ordersDtos.subList(0,10);
-        }else{
-            Integer seq = (Integer) redisTemplate.opsForValue().get("yhAdminKey");
-            List<OrdersDto> ordersDtos = (List<OrdersDto>) redisTemplate.opsForValue().get("yhAdmin");
-            result = ordersDtos.subList(seq,seq+10);
-            redisTemplate.opsForValue().set("yhAdminKey",seq+10, 1, TimeUnit.MINUTES);
-        }
-
-         */
-
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(ordersService.findListWithCookie(request,response));
     }
 
     @GetMapping("/v2/page/{id}")
