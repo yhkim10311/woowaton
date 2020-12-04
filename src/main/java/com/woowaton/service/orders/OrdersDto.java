@@ -34,6 +34,8 @@ public class OrdersDto implements Serializable {
 
     private LocalDateTime createdDate;
 
+    private String woowatonV;
+
     private List<MenuDto> menusDto = new ArrayList<>();
 
     public OrdersDto(Orders orders){

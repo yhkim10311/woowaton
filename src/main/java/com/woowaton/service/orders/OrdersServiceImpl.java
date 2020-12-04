@@ -83,6 +83,7 @@ public class OrdersServiceImpl implements OrdersService{
             cookie.setMaxAge(30);
             response.addCookie(cookie);
         }
+        result.get(0).setWoowatonV(redisKey);
         return result;
     }
 
