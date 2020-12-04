@@ -6,11 +6,13 @@ import com.woowaton.domain.orders.Orders;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Getter
 @NoArgsConstructor
@@ -86,4 +88,5 @@ public class Store extends BaseTimeEntity {
         this.comment2imageUrl = comment2imageUrl;
         this.ratingCnt = ratingCnt;
     }
+
 }

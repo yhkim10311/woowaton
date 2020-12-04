@@ -1,9 +1,7 @@
 package com.woowaton.config;
 
-import com.woowaton.domain.user.Role;
 import com.woowaton.security.RedisAuthFilter;
 import com.woowaton.service.auth.CustomUserDetailService;
-import com.woowaton.service.auth.UserLoginFailHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @RequiredArgsConstructor
@@ -25,6 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
 
     private final CustomUserDetailService customUserDetailService;
+
 //    private final EntryPointUnauthorizedHandler entryPointUnauthorizedHandler;
 
     @Bean
@@ -65,15 +63,15 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
                 .disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
+                .and()
 //                .exceptionHandling()
 //                .authenticationEntryPoint(entryPointUnauthorizedHandler)
-                .and()
+//                .and()
                 .authorizeRequests()
                 .antMatchers("/**","/js/**","/h2-console/**").permitAll()
                 .antMatchers("/join","/login","/post","/accessdenied").permitAll()
                 .antMatchers("/api/store/join").permitAll()
-                .antMatchers("/api/user/join").permitAll()
+                .antMatchers("/api/user/join","/api/auth").permitAll()
 //                .antMatchers("/api/**").hasRole(Role.USER.name())
                 .anyRequest().authenticated()
                 .and()

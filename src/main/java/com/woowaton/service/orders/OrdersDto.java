@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,9 @@ import static org.springframework.beans.BeanUtils.copyProperties;
 @Getter
 @Setter
 @ToString
-public class OrdersDto {
+public class OrdersDto implements Serializable {
+
+    private static final long serialVersionUID = 2478197471250586664L;
 
     private Long id;
 

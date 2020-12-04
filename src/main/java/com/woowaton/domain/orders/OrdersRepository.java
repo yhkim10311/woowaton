@@ -16,4 +16,5 @@ public interface OrdersRepository extends PagingAndSortingRepository<Orders, Lon
 
     @Query("select o from Orders o order by o.createdDate desc")
     List<Orders> findAllByPage(Pageable pageable);
+
 }
