@@ -46,14 +46,16 @@ public class OrdersRestController {
         Cookie[] cookies = request.getCookies();
         boolean flag = false;
 
-        for(Cookie cookie : cookies){
-            String cookieName = cookie.getName();
-            if(cookieName.equals(woowaCookie)){
-                Object obj = redisTemplate.opsForValue().get(cookie.getValue());
-                if(obj != null){
-                    flag = true;
-                    redisKey = cookie.getValue();
-                    break;
+        if(cookies!=null) {
+            for (Cookie cookie : cookies) {
+                String cookieName = cookie.getName();
+                if (cookieName.equals(woowaCookie)) {
+                    Object obj = redisTemplate.opsForValue().get(cookie.getValue());
+                    if (obj != null) {
+                        flag = true;
+                        redisKey = cookie.getValue();
+                        break;
+                    }
                 }
             }
         }
