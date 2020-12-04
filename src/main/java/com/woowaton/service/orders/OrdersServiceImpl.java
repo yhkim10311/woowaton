@@ -45,8 +45,6 @@ public class OrdersServiceImpl implements OrdersService{
     public List<OrdersDto> findListWithCookie(HttpServletRequest request, HttpServletResponse response) {
         List<OrdersDto> result;
 
-        response.setHeader("Access-Control-Allow-Credentials", "true");
-
         String redisKey = UUID.randomUUID().toString();
         Cookie[] cookies = request.getCookies();
         boolean flag = false;

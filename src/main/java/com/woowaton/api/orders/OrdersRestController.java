@@ -40,6 +40,10 @@ public class OrdersRestController {
     @GetMapping("/v2/page")
     public ResponseEntity<List<OrdersDto>> allOrdersByPageV2(HttpServletRequest request, HttpServletResponse response){
 
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods","GET, OPTIONS, HEAD, PUT, POST");
+        response.addHeader("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
+
         return ResponseEntity.ok(ordersService.findListWithCookie(request,response));
     }
 
